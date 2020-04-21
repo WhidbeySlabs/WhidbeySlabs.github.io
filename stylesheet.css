@@ -4,21 +4,6 @@ body {
 	margin: 0;
 	font-weight: bold; 
 }
-/*
-.header{
-	position: fixed;
-	background-color: rgb(20, 39, 82);
-	width: 100%;
-	padding-left: 20px;
-	margin: 0 0 0 0;
-	overflow: hidden;
-	float:center;
-	z-index:10;
-	line-height: 40%;
-	border-bottom: 5px solid rgb(121,189,154);
-	padding-bottom:0 px;
-	
-}*/
 
 .header{
 	background-color: rgb(8, 16, 33);
@@ -62,11 +47,6 @@ body {
 	text-decoration: none;
 }
 
-/* Change color on hover *//*
-.nav-menu a:hover {
-  background-color: #ddd;
-  color: black;
-}*/
 h3{
 	color: #f2f2f2;
 	padding-left: 20px;
