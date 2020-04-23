@@ -85,4 +85,7 @@ h3{
   overflow:hidden;
   border-top: 2px solid rgb(121,189,154);
   color: #f2f2f2;
+  position: fixed;
+  left: 0;
+  bottom: 0;
 }
