@@ -4,7 +4,6 @@
     <meta charset="utf-8">
     <title>WhidbeySlabs</title>
 	<link rel="stylesheet" type="text/css" href="stylesheet.css">
-	<link rel="shortcut icon" href="logo_ZHv_icon.ico">
   </head>
   <body>
 	
@@ -22,22 +21,122 @@
 		
 	<h3 id="current-conditions"> Current Conditions</h3>
 	
-		<iframe src="https://www.ndbc.noaa.gov/widgets/station_page.php?station=46087" style="border: double medium #3366ff; width:300px; height:550px"></iframe>
-		<iframe src="https://www.ndbc.noaa.gov/widgets/station_page.php?station=46088" style="border: double medium #3366ff; width:300px; height:550px"></iframe>
-		<iframe src="https://www.ndbc.noaa.gov/widgets/station_page.php?station=SISW1" style="border: double medium #3366ff; width:300px; height:350px"></iframe>
+		<table id="swell_datatable">
+
+			<tr>
+				<th>Station ID</th>
+				<th>Time</th>
+				<th>Swell Height</th>
+				<th>Swell Period</th>
+				<th>Swell Direction</th>
+			</tr>
+			<tr id="station_1">
+				<td id="station_id">46087</td>
+				<td id="obs_time">NaN</td>
+				<td id="swell_h">NaN</td>
+				<td id="swell_p">NaN</td>
+				<td id="swell_d">NaN</td>
+			</tr>
+			<tr id="station_2">
+				<td id="station_id">46088</td>
+				<td id="obs_time">NaN</td>
+				<td id="swell_h">NaN</td>
+				<td id="swell_p">NaN</td>
+				<td id="swell_d">NaN</td>
+			</tr>			
 	
+		</table>
+		
 	<h3 id="surf-forcast"> Surf Forcast</h3>
 	
 	<div class:"data">
+	 <!--
+
 		<img class="bouy-data" src="https://polar.ncep.noaa.gov/nwps/images/rtimages/validation/nwps_sew_46088_ts.png" width="500px" alt="New Dungeness Bouy Forcast">
 		<img class="bouy-data" src="https://polar.ncep.noaa.gov/nwps/images/rtimages/validation/nwps_sew_46087_ts.png" width="500px" alt="West Juan de Fuca Bouy Forcast">
-		<div style="width: 295px;"><iframe style="display: block;" src="https://cdnres.willyweather.com/widget/loadView.html?id=121750" width="295" height="228" frameborder="0" scrolling="no"></iframe><a style="text-indent: -9999em;position: relative;height: 20px;margin: -20px 0 0 0;z-index: 1;display: block" href="https://www.willyweather.com/wa/island-county/fort-ebey-state-park.html" rel="nofollow">The latest weather for fort ebey state park</a></div>
+	 -->
 	</div>  
 	 
-
+	 
 	<div class="footer">
 		<p>Footer</p>
 	</div>
+	
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
+	
+	
+	
+	<script type="text/javascript">
+		
+		/* 46087 Current Data Request */
+		
+		const xhr_46087 = new XMLHttpRequest();
+
+		xhr_46087.onreadystatechange = function(){
+			if(xhr_46087.readyState == 4){
+				if(xhr_46087.status == 200){
+				
+				var obs = xhr_46087.responseText;
+				console.log(obs);
+				var obs_split = obs.split(/[\s\n]+/);
+				
+				$("#station_1 #obs_time").html(obs_split[obs_split.indexOf("Wave") + 2] + " " +
+					obs_split[obs_split.indexOf("Wave") + 3] + " " +
+					obs_split[obs_split.indexOf("Wave") + 4]);
+				$("#station_1 #swell_h").html(obs_split[obs_split.indexOf("Swell:") + 1] + " " +
+					obs_split[obs_split.indexOf("Swell:") + 2]);
+				$("#station_1 #swell_p").html(obs_split[obs_split.indexOf("Period:") + 1] + " " +
+					obs_split[obs_split.indexOf("Period:") + 2]);
+				$("#station_1 #swell_d").html(obs_split[obs_split.indexOf("Direction:") + 1]);
+
+			}
+			
+			else if(xhr_46087.status == 404){
+					console.log("File not Found");
+			}
+			
+			else{}
+		}	
+		};
+		
+		xhr_46087.open('get', "https://cors-anywhere.herokuapp.com/https://www.ndbc.noaa.gov/data/latest_obs/46087.txt", true);
+		xhr_46087.send();
+		
+		/* 46088 Current Data Request */
+		
+		const xhr_46088 = new XMLHttpRequest();
+
+		xhr_46088.onreadystatechange = function(){
+			if(xhr_46088.readyState == 4){
+				if(xhr_46088.status == 200){
+				
+				var obs = xhr_46088.responseText;
+				console.log(obs);
+				var obs_split = obs.split(/[\s\n]+/);
+				
+				$("#station_2 #obs_time").html(obs_split[obs_split.indexOf("Wave") + 2] + " " +
+					obs_split[obs_split.indexOf("Wave") + 3] + " " +
+					obs_split[obs_split.indexOf("Wave") + 4]);
+				$("#station_2 #swell_h").html(obs_split[obs_split.indexOf("Swell:") + 1] + " " +
+					obs_split[obs_split.indexOf("Swell:") + 2]);
+				$("#station_2 #swell_p").html(obs_split[obs_split.indexOf("Period:") + 1] + " " +
+					obs_split[obs_split.indexOf("Period:") + 2]);
+				$("#station_2 #swell_d").html(obs_split[obs_split.indexOf("Direction:") + 1]);
+				
+			}
+			
+			else if(xhr_46088.status == 404){
+					console.log("File not Found");
+			}
+			
+			else{}
+		}	
+		};
+		
+		xhr_46088.open('get', "https://cors-anywhere.herokuapp.com/https://www.ndbc.noaa.gov/data/latest_obs/46088.txt", true);
+		xhr_46088.send();
+		
+	</script>
 	
   </body>
 </html>
