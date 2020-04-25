@@ -1,0 +1,132 @@
+body {
+    background: rgb(32, 41, 59);
+    font-family: Helvetica;
+	margin: 0;
+	font-weight: bold; 
+}
+
+
+.header{
+	background-color: rgb(8, 16, 33);
+	padding:0;
+	margin:0;
+	width: 100%;
+	overflow:hidden;
+	line-height: .4;
+	color: #f2f2f2;
+}
+
+#title a{
+	font-size: 40px;
+	padding-left: 5%;
+	color: #f2f2f2;
+	text-decoration: none;
+}
+
+#quote{
+	margin-left: 80px;
+	font-style: italic;
+	padding-left: 8%;
+	font-size: 20px;
+	font-weight: normal;
+}
+
+/*nav menu box*/
+.nav-menu{
+	overflow:hidden;
+	background-color:rgb(8, 16, 33);
+	padding-top: 0;
+	border-bottom: 5px solid rgb(121,189,154);
+	
+}
+
+/* Style the topnav links */
+.nav-menu a {
+	float: right;
+	display: block;
+	color: #f2f2f2;
+	text-align: center;
+	padding: 20px 20px;
+	text-decoration: none;
+}
+
+#surf-forcast{
+	color: #f2f2f2;
+	padding-left: 5%;
+}
+
+#current-conditions{
+	color: #f2f2f2;
+	padding-left: 5%;
+}
+
+/*
+.data{
+  margin:auto;
+  width:50%;
+  border: double medium #3366ff;
+  text-align:center;
+}
+*/
+
+/* SWELL TABLE */
+table{
+	background-color: rgb(8, 16, 33);
+	width:90%;
+	border-left: 2px solid rgb(121,189,154);
+	border-bottom: 2px solid rgb(121,189,154);
+	border-top: 2px solid rgb(121,189,154);
+	border-spacing: 15px;
+	padding: 10rem;
+	color: #f2f2f2;
+	text-align: center;
+	font-size: 14px;
+	border-collapse: collapse;
+	margin-right: auto;
+	margin-left: auto;
+}
+
+.data_table{
+	 text-align: center;
+}
+
+table, th, td{
+	
+    border: 2px solid rgb(121,189,154);
+}
+#swell_datatable th{
+	font-size: 20px;
+	
+}
+
+/*SWELL FORCAST TABLE */
+.swell_map {
+ width: 200px; /* width of container */
+	
+}
+
+/* ABOUT PAGE */
+
+#about p{
+	text-align: center;
+	color: #f2f2f2;
+}
+
+/* STYLE FOOTER */
+.footer {
+  background-color: rgb(8, 16, 33);
+  padding: 0;
+  text-align: center;
+  width: 100%;
+  overflow:hidden;
+  border-top: 2px solid rgb(121,189,154);
+  color: #f2f2f2;
+  position: fixed;
+  left: 0;
+  bottom: 0;
+}
+
+.footer a{
+	color: #f2f2f2;
+	text-decoration: none;
+}
