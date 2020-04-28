@@ -104,7 +104,7 @@ xhr_46267.onreadystatechange = function(){
 }	
 };
 
-xhr_46267.open('get', "https://www.ndbc.noaa.gov/data/latest_obs/46267.txt", true);
+xhr_46267.open('get', "https://cors-anywhere.herokuapp.com/https://www.ndbc.noaa.gov/data/latest_obs/46267.txt", true);
 xhr_46267.send();
 
 /* 46087 Rate of swell change request Data Request */
