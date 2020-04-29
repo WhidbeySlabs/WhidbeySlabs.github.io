@@ -10,15 +10,15 @@ xhr_46087_c_s.onreadystatechange = function(){
 		//console.log(obs);
 		var obs_split = obs.split(/[\s\n]+/);
 		
-		$("#station_1 #obs_time").html(obs_split[obs_split.lastIndexOf("PDT") - 2] + " " +
+		$("#obs_time #station_1").html(obs_split[obs_split.lastIndexOf("PDT") - 2] + " " +
 			obs_split[obs_split.lastIndexOf("PDT") - 1] + " " +
 			obs_split[obs_split.lastIndexOf("PDT")]);
 		if(obs_split.length > 40){	
-			$("#station_1 #swell_h").html(obs_split[obs_split.indexOf("Swell:") + 1] + " " +
+			$("#swell_h #station_1").html(obs_split[obs_split.indexOf("Swell:") + 1] + " " +
 				obs_split[obs_split.indexOf("Swell:") + 2]);
-			$("#station_1 #swell_p").html(obs_split[obs_split.indexOf("Period:") + 1] + " " +
+			$("#swell_p #station_1").html(obs_split[obs_split.indexOf("Period:") + 1] + " " +
 				obs_split[obs_split.indexOf("Period:") + 2]);
-			$("#station_1 #swell_d").html(obs_split[obs_split.indexOf("Direction:") + 1]);
+			$("#swell_d #station_1").html(obs_split[obs_split.indexOf("Direction:") + 1]);
 		}else{}
 	}
 	
@@ -46,15 +46,15 @@ xhr_46088.onreadystatechange = function(){
 		var obs_split = obs.split(/[\s\n]+/);
 		//console.log(obs_split);
 		
-		$("#station_2 #obs_time").html(obs_split[obs_split.lastIndexOf("PDT") - 2] + " " +
+		$("#obs_time #station_3").html(obs_split[obs_split.lastIndexOf("PDT") - 2] + " " +
 			obs_split[obs_split.lastIndexOf("PDT") - 1] + " " +
 			obs_split[obs_split.lastIndexOf("PDT")]);
 		if(obs_split.length > 40){						
-			$("#station_2 #swell_h").html(obs_split[obs_split.indexOf("Swell:") + 1] + " " +
+			$("#swell_h #station_3").html(obs_split[obs_split.indexOf("Swell:") + 1] + " " +
 				obs_split[obs_split.indexOf("Swell:") + 2]);
-			$("#station_2 #swell_p").html(obs_split[obs_split.indexOf("Period:") + 1] + " " +
+			$("#swell_p #station_3").html(obs_split[obs_split.indexOf("Period:") + 1] + " " +
 				obs_split[obs_split.indexOf("Period:") + 2]);
-			$("#station_2 #swell_d").html(obs_split[obs_split.indexOf("Direction:") + 1]);
+			$("#swell_d #station_3").html(obs_split[obs_split.indexOf("Direction:") + 1]);
 		}else{}
 		
 	}
@@ -83,15 +83,15 @@ xhr_46267.onreadystatechange = function(){
 		var obs_split = obs.split(/[\s\n]+/);
 		//console.log(obs_split);
 		
-		$("#station_3 #obs_time").html(obs_split[obs_split.lastIndexOf("PDT") - 2] + " " +
+		$("#obs_time #station_2").html(obs_split[obs_split.lastIndexOf("PDT") - 2] + " " +
 			obs_split[obs_split.lastIndexOf("PDT") - 1] + " " +
 			obs_split[obs_split.lastIndexOf("PDT")]);
 		if(obs_split.length > 40){						
-			$("#station_3 #swell_h").html(obs_split[obs_split.indexOf("Swell:") + 1] + " " +
+			$("#swell_h #station_2").html(obs_split[obs_split.indexOf("Swell:") + 1] + " " +
 				obs_split[obs_split.indexOf("Swell:") + 2]);
-			$("#station_3 #swell_p").html(obs_split[obs_split.indexOf("Period:") + 1] + " " +
+			$("#swell_p #station_2").html(obs_split[obs_split.indexOf("Period:") + 1] + " " +
 				obs_split[obs_split.indexOf("Period:") + 2]);
-			$("#station_3 #swell_d").html(obs_split[obs_split.indexOf("Direction:") + 1]);
+			$("#swell_d #station_2").html(obs_split[obs_split.indexOf("Direction:") + 1]);
 		}else{}
 		
 	}
@@ -131,23 +131,14 @@ xhr_46087_rot_s.onreadystatechange = function(){
 					
 		console.log(latest_avg_swell/past_avg_swell);
 		
-		if((latest_avg_swell/past_avg_swell) > 1){
-			$("#station_1 #swell_h").css("color", "green")
+		$("#swell_t #station_1").html((latest_avg_swell/past_avg_swell).toFixed(2));
+		
+		if((latest_avg_swell/past_avg_swell).toFixed(2) >= 1){
+			$("#swell_t #station_1").css("color", "rgb(10, 87, 12)");
 		}else{
-			$("#station_1 #swell_h").css("color", "red")
+			$("#swell_t #station_1").css("color", "rgb(138, 12, 23)");
 		}
-		/*
-		$("#station_3 #obs_time").html(obs_split[obs_split.lastIndexOf("PDT") - 2] + " " +
-			obs_split[obs_split.lastIndexOf("PDT") - 1] + " " +
-			obs_split[obs_split.lastIndexOf("PDT")]);
-		if(obs_split.length > 40){						
-			$("#station_3 #swell_h").html(obs_split[obs_split.indexOf("Swell:") + 1] + " " +
-				obs_split[obs_split.indexOf("Swell:") + 2]);
-			$("#station_3 #swell_p").html(obs_split[obs_split.indexOf("Period:") + 1] + " " +
-				obs_split[obs_split.indexOf("Period:") + 2]);
-			$("#station_3 #swell_d").html(obs_split[obs_split.indexOf("Direction:") + 1]);
-		}else{}
-		*/
+
 	}
 	
 	else if(xhr_46087_rot_s.status == 404){
@@ -160,6 +151,43 @@ xhr_46087_rot_s.onreadystatechange = function(){
 
 xhr_46087_rot_s.open('get', "https://cors-anywhere.herokuapp.com/https://www.ndbc.noaa.gov/data/5day2/46087_5day.spec", true);
 xhr_46087_rot_s.send();
+
+/* 46267 Current Data Request */
+
+const xhr_sisw1 = new XMLHttpRequest();
+
+xhr_sisw1.onreadystatechange = function(){
+	if(xhr_sisw1.readyState == 4){
+		if(xhr_sisw1.status == 200){
+		
+		var obs = xhr_sisw1.responseText;
+		//console.log(obs);
+		var obs_split = obs.split(/[\s\n]+/);
+		//console.log(obs_split);
+		
+		$("#obs_time #station_4").html(obs_split[obs_split.indexOf("PDT") - 2] + " " +
+			obs_split[obs_split.lastIndexOf("PDT") - 1] + " " +
+			obs_split[obs_split.lastIndexOf("PDT")]);				
+		$("#wind #station_4").html(obs_split[obs_split.indexOf("Wind:") + 1] + " " +
+			obs_split[obs_split.indexOf("Wind:") + 2] + " " +
+			obs_split[obs_split.indexOf("Wind:") + 3] + " " +
+			obs_split[obs_split.indexOf("Wind:") + 4]);
+		/*$("#swell_p #station_2").html(obs_split[obs_split.indexOf("Period:") + 1] + " " +
+			obs_split[obs_split.indexOf("Period:") + 2]);
+		$("#swell_d #station_2").html(obs_split[obs_split.indexOf("Direction:") + 1]);*/
+		}
+		
+	}
+	
+	else if(xhr_sisw1.status == 404){
+			console.log("File not Found");
+	}
+	
+	else{}
+};
+
+xhr_sisw1.open('get', "https://cors-anywhere.herokuapp.com/https://www.ndbc.noaa.gov/data/latest_obs/sisw1.txt", true);
+xhr_sisw1.send();
 
 /*Timing for Swell Data*/
 /*	
