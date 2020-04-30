@@ -49,6 +49,10 @@ xhr_46088.onreadystatechange = function(){
 		$("#obs_time #station_3").html(obs_split[obs_split.lastIndexOf("PDT") - 2] + " " +
 			obs_split[obs_split.lastIndexOf("PDT") - 1] + " " +
 			obs_split[obs_split.lastIndexOf("PDT")]);
+		$("#wind #station_3").html(obs_split[obs_split.indexOf("Wind:") + 1] + " " +
+			obs_split[obs_split.indexOf("Wind:") + 2] + " " +
+			obs_split[obs_split.indexOf("Wind:") + 3] + " " +
+			obs_split[obs_split.indexOf("Wind:") + 4]);
 		if(obs_split.length > 40){						
 			$("#swell_h #station_3").html(obs_split[obs_split.indexOf("Swell:") + 1] + " " +
 				obs_split[obs_split.indexOf("Swell:") + 2]);

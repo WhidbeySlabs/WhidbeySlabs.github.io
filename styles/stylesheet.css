@@ -78,6 +78,7 @@ body {
 
 .data_table caption{
 	text-align:left;
+	font-size: 14px;
 }
 
 th, td{	
