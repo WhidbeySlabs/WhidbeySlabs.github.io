@@ -44,7 +44,8 @@ body {
 	overflow:hidden;
 	background-color:rgb(8, 16, 33);
 	padding-top: 0;
-	border-bottom: 5px solid rgb(85, 97, 91);
+	border-bottom: 5px solid rgba(38, 41, 48, 0.6);
+;
 	
 }
 
@@ -75,9 +76,14 @@ body {
 
 /* SWELL TABLE */
 
+.data_table caption{
+	text-align:left;
+}
+
 th, td{	
     border-left: 4px solid rgb(32, 41, 59);
 	border-right: 4px solid rgb(32, 41, 59);
+	border-bottom: 4px solid rgb(32, 41, 59);
 	width:20%;
 }
 
@@ -89,23 +95,23 @@ table{
 	padding: 2rem;
 	color: rgb(216, 215, 222);
 	text-align: center;
-	font-size: 14px;
+	font-size: 12px;
 	border-collapse: collapse;
 	margin-right: auto;
 	margin-left: auto;
 }
 
 table #table_m{
-	font-size: 16px;
+	font-size: 14px;
 }
 
-tr:nth-child(even) {
+tr:nth-child(odd) {
 	background: rgba(38, 41, 48, 0.6);
 }
 
 th{
 	background-color: rgba(8, 16, 33, 0.9);
-	font-size: 20px;
+	font-size: 16px;
 	border-bottom:4px solid rgb(32, 41, 59);
 }
 
@@ -134,7 +140,7 @@ th{
   text-align: center;
   width: 100%;
   overflow:hidden;
-  border-top: 2px solid rgb(85, 97, 91);
+  border-top: 2px solid rgba(38, 41, 48, 0.6);
   color: #f2f2f2;
   position: fixed;
   left: 0;
