@@ -174,9 +174,6 @@ xhr_sisw1.onreadystatechange = function(){
 		$("#wind_d #station_4").html(obs_split[obs_split.indexOf("Wind:") + 1]);
 		$("#wind_s #station_4").html(obs_split[obs_split.indexOf("Wind:") + 3] + " " +
 			obs_split[obs_split.indexOf("Wind:") + 4]);
-		/*$("#swell_p #station_2").html(obs_split[obs_split.indexOf("Period:") + 1] + " " +
-			obs_split[obs_split.indexOf("Period:") + 2]);
-		$("#swell_d #station_2").html(obs_split[obs_split.indexOf("Direction:") + 1]);*/
 		}
 		
 	}
