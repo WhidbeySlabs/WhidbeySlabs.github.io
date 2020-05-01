@@ -86,12 +86,14 @@ th, td{
 	border-right: 4px solid rgb(32, 41, 59);
 	border-bottom: 4px solid rgb(32, 41, 59);
 	width:20%;
+	padding-top: 4px;
+	padding-bottom: 4px;
 }
 
 table{
 	background-color: rgba(8, 16, 33, 0.8);
+	border: 6px solid rgb(32, 41, 59);
 	width:auto;
-	border: 4px solid rgb(32, 41, 59);
 	border-spacing: 5px;
 	padding: 2rem;
 	color: rgb(216, 215, 222);
