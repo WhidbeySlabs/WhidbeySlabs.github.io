@@ -195,3 +195,6 @@ var n = d.getUTCHours();
 $("#rtf").html(d);
 console.log(d);
 console.log(n);3*/
+
+
+/*https://tidesandcurrents.noaa.gov/api/datagetter?product=predictions&application=NOS.COOPS.TAC.WL&begin_date=20200501&end_date=20200502&datum=MLLW&station=9447934&time_zone=lst_ldt&units=english&interval=hilo&format=json*/ 
