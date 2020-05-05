@@ -110,6 +110,39 @@ xhr_46267.onreadystatechange = function(){
 xhr_46267.open('get', "https://cors-anywhere.herokuapp.com/https://www.ndbc.noaa.gov/data/latest_obs/46267.txt", true);
 xhr_46267.send();
 
+/* PTWW1 Current Data Request */
+
+const xhr_ptww1 = new XMLHttpRequest();
+
+xhr_ptww1.onreadystatechange = function(){
+	if(xhr_ptww1.readyState == 4){
+		if(xhr_ptww1.status == 200){
+		
+		var obs = xhr_ptww1.responseText;
+		//console.log(obs);
+		var obs_split = obs.split(/[\s\n]+/);
+		//console.log(obs_split);
+		
+		$("#obs_time #station_2").html(obs_split[obs_split.lastIndexOf("PDT") - 2] + " " +
+			obs_split[obs_split.lastIndexOf("PDT") - 1] + " " +
+			obs_split[obs_split.lastIndexOf("PDT")]);
+		$("#wind_d #station_2").html(obs_split[obs_split.indexOf("Wind:") + 1]);
+		$("#wind_s #station_2").html(obs_split[obs_split.indexOf("Wind:") + 3] + " " +
+			obs_split[obs_split.indexOf("Wind:") + 4]);
+		
+	}
+	
+	else if(xhr_ptww1.status == 404){
+			console.log("File not Found");
+	}
+	
+	else{}
+}	
+};
+
+xhr_ptww1.open('get', "https://cors-anywhere.herokuapp.com/https://www.ndbc.noaa.gov/data/latest_obs/ptww1.txt", true);
+xhr_ptww1.send();
+
 /* 46087 Rate of swell change request Data Request */
 
 const xhr_46087_rot_s = new XMLHttpRequest();
@@ -188,7 +221,7 @@ xhr_sisw1.onreadystatechange = function(){
 xhr_sisw1.open('get', "https://cors-anywhere.herokuapp.com/https://www.ndbc.noaa.gov/data/latest_obs/sisw1.txt", true);
 xhr_sisw1.send();
 
-/*Timing for Swell Data*/
+/*Timing for Tide Data*/
 	
 var date = new Date();
 var date_year = date.getFullYear().toString();
@@ -207,7 +240,15 @@ if(date_day < 10){
 }else{date_day_tomorrow = date_day_tomorrow.toString();
 	  date_day = date_day.toString();}
 
-/* 46267 Current Data Request */
+
+var date_min = date.getMinutes();
+if(date_min < 10){
+	date_min = "0" + date_min.toString();
+}else{date_min = date_min.toString();}
+
+console.log(parseInt(date.getHours() + date_min));
+
+/* Fort Ebey Tide Data Request */
 
 const xhr_ebeyTide = new XMLHttpRequest();
 
@@ -220,28 +261,64 @@ xhr_ebeyTide.onreadystatechange = function(){
 		//console.log(obs);
 		//console.log(obs.predictions[0]);
 		
-		$("#obs_time #t_1").html(obs.predictions[0].t);
-		$("#obs_time #t_2").html(obs.predictions[1].t);
-		$("#obs_time #t_3").html(obs.predictions[2].t);
-		$("#obs_time #t_4").html(obs.predictions[3].t);
+		var tide_times_string = new Array(8);
+		var tide_times_ints = new Array(2);
+		var tide_times_int = new Array(8);
+		
+		
+		for(i=0; i < obs.predictions.length; i++){ 
+			tide_times_string[i] = (obs.predictions[i].t.split(/[\s\n]+/))[1];
+			tide_times_int[i] = (tide_times_string[i].split(/[:]+/));
+			tide_times_int[i] = parseInt(tide_times_int[i][0]+tide_times_int[i][1]);
+			if(i > 3){
+				tide_times_string[i] = tide_times_string[i] + " + 1";
+			}else{}	
+		}
+		
+		console.log(tide_times_int);
+		
+		var i;
+		
+		if(tide_times_int[0] < parseInt(date.getHours() + date_min) && 
+		   tide_times_int[1] < parseInt(date.getHours() + date_min) &&
+		   tide_times_int[2] < parseInt(date.getHours() + date_min) &&
+		   tide_times_int[3] < parseInt(date.getHours() + date_min)){
+		   i = 3;	 
+		}else if (
+		   tide_times_int[0] < parseInt(date.getHours() + date_min) && 
+		   tide_times_int[1] < parseInt(date.getHours() + date_min) &&
+		   tide_times_int[2] < parseInt(date.getHours() + date_min)){
+		   i = 2;
+		}else if (
+		   tide_times_int[0] < parseInt(date.getHours() + date_min) && 
+		   tide_times_int[1] < parseInt(date.getHours() + date_min)){
+		   i = 1;
+		}else{i=0;}
+		
+		console.log(i);
+		
+		$("#obs_time #t_1").html(tide_times_string[i]);
+		$("#obs_time #t_2").html(tide_times_string[i + 1]);
+		$("#obs_time #t_3").html(tide_times_string[i + 2]);
+		$("#obs_time #t_4").html(tide_times_string[i + 3]);
 		/*$("#obs_time #t_5").html(obs.predictions[4].t);
 		$("#obs_time #t_6").html(obs.predictions[5].t);
 		$("#obs_time #t_7").html(obs.predictions[6].t);
 		$("#obs_time #t_8").html(obs.predictions[7].t);*/
 		
-		$("#h_l #t_1").html(obs.predictions[0].type);
-		$("#h_l #t_2").html(obs.predictions[1].type);
-		$("#h_l #t_3").html(obs.predictions[2].type);
-		$("#h_l #t_4").html(obs.predictions[3].type);
+		$("#h_l #t_1").html(obs.predictions[i].type);
+		$("#h_l #t_2").html(obs.predictions[i + 1].type);
+		$("#h_l #t_3").html(obs.predictions[i + 2].type);
+		$("#h_l #t_4").html(obs.predictions[i + 3].type);
 		/*$("#h_l #t_5").html(obs.predictions[4].type);
 		$("#h_l #t_6").html(obs.predictions[5].type);
 		$("#h_l #t_7").html(obs.predictions[6].type);
 		$("#h_l #t_8").html(obs.predictions[7].type);*/
 		
-		$("#value #t_1").html(obs.predictions[0].v);
-		$("#value #t_2").html(obs.predictions[1].v);
-		$("#value #t_3").html(obs.predictions[2].v);
-		$("#value #t_4").html(obs.predictions[3].v);
+		$("#value #t_1").html(obs.predictions[i].v);
+		$("#value #t_2").html(obs.predictions[i + 1].v);
+		$("#value #t_3").html(obs.predictions[i + 2].v);
+		$("#value #t_4").html(obs.predictions[i + 3].v);
 		/*$("#value #t_5").html(obs.predictions[4].v);
 		$("#value #t_6").html(obs.predictions[5].v);
 		$("#value #t_7").html(obs.predictions[6].v);
