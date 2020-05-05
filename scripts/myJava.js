@@ -119,12 +119,12 @@ xhr_46087_rot_s.onreadystatechange = function(){
 		if(xhr_46087_rot_s.status == 200){
 		
 		var obs = xhr_46087_rot_s.responseText;
-		console.log(obs);
+		//console.log(obs);
 		var obs_split = obs.split(/[\s\n]+/);
-		console.log(obs_split);
+		//console.log(obs_split);
 		
-		console.log(obs_split[obs_split.indexOf("SwH")+15*2]);
-		console.log(obs_split[obs_split.indexOf("SwH")+15*3]);
+		//console.log(obs_split[obs_split.indexOf("SwH")+15*2]);
+		//console.log(obs_split[obs_split.indexOf("SwH")+15*3]);
 		
 		var latest_avg_swell = (parseFloat(obs_split[obs_split.indexOf("SwH")+15*2]) + parseFloat(obs_split[obs_split.indexOf("SwH")+15*3]) 
 					+ parseFloat(obs_split[obs_split.indexOf("SwH")+15*4]));
@@ -132,7 +132,7 @@ xhr_46087_rot_s.onreadystatechange = function(){
 		var past_avg_swell = (parseFloat(obs_split[obs_split.indexOf("SwH")+15*5]) + parseFloat(obs_split[obs_split.indexOf("SwH")+15*6]) 
 					+ parseFloat(obs_split[obs_split.indexOf("SwH")+15*7]));
 					
-		console.log(latest_avg_swell/past_avg_swell);
+		//console.log(latest_avg_swell/past_avg_swell);
 		
 		$("#swell_t #station_1").html((latest_avg_swell/past_avg_swell).toFixed(2));
 		
@@ -189,12 +189,85 @@ xhr_sisw1.open('get', "https://cors-anywhere.herokuapp.com/https://www.ndbc.noaa
 xhr_sisw1.send();
 
 /*Timing for Swell Data*/
-/*	
-var d = new Date();
-var n = d.getUTCHours();
-$("#rtf").html(d);
-console.log(d);
-console.log(n);3*/
+	
+var date = new Date();
+var date_year = date.getFullYear().toString();
+
+var date_month = (date.getUTCMonth() + 1).toString();
+if(date_month < 10){
+	date_month = "0" + date_month.toString();
+}else{date_month = date_month.toString();}
 
 
-/*https://tidesandcurrents.noaa.gov/api/datagetter?product=predictions&application=NOS.COOPS.TAC.WL&begin_date=20200501&end_date=20200502&datum=MLLW&station=9447934&time_zone=lst_ldt&units=english&interval=hilo&format=json*/ 
+var date_day = date.getDate();
+var date_day_tomorrow = date_day + 1;
+if(date_day < 10){
+	date_day_tomorrow = "0" + date_day_tomorrow.toString();
+	date_day = "0" + date_day.toString();
+}else{date_day_tomorrow = date_day_tomorrow.toString();
+	  date_day = date_day.toString();}
+
+/* 46267 Current Data Request */
+
+const xhr_ebeyTide = new XMLHttpRequest();
+
+xhr_ebeyTide.onreadystatechange = function(){
+	if(xhr_ebeyTide.readyState == 4){
+		if(xhr_ebeyTide.status == 200){
+		
+		var obs = xhr_ebeyTide.responseText;
+		obs = (JSON.parse(obs));
+		//console.log(obs);
+		//console.log(obs.predictions[0]);
+		
+		$("#obs_time #t_1").html(obs.predictions[0].t);
+		$("#obs_time #t_2").html(obs.predictions[1].t);
+		$("#obs_time #t_3").html(obs.predictions[2].t);
+		$("#obs_time #t_4").html(obs.predictions[3].t);
+		/*$("#obs_time #t_5").html(obs.predictions[4].t);
+		$("#obs_time #t_6").html(obs.predictions[5].t);
+		$("#obs_time #t_7").html(obs.predictions[6].t);
+		$("#obs_time #t_8").html(obs.predictions[7].t);*/
+		
+		$("#h_l #t_1").html(obs.predictions[0].type);
+		$("#h_l #t_2").html(obs.predictions[1].type);
+		$("#h_l #t_3").html(obs.predictions[2].type);
+		$("#h_l #t_4").html(obs.predictions[3].type);
+		/*$("#h_l #t_5").html(obs.predictions[4].type);
+		$("#h_l #t_6").html(obs.predictions[5].type);
+		$("#h_l #t_7").html(obs.predictions[6].type);
+		$("#h_l #t_8").html(obs.predictions[7].type);*/
+		
+		$("#value #t_1").html(obs.predictions[0].v);
+		$("#value #t_2").html(obs.predictions[1].v);
+		$("#value #t_3").html(obs.predictions[2].v);
+		$("#value #t_4").html(obs.predictions[3].v);
+		/*$("#value #t_5").html(obs.predictions[4].v);
+		$("#value #t_6").html(obs.predictions[5].v);
+		$("#value #t_7").html(obs.predictions[6].v);
+		$("#value #t_8").html(obs.predictions[7].v);*/
+
+		}
+		
+	}
+	
+	else if(xhr_ebeyTide.status == 404){
+			console.log("File not Found");
+	}
+	
+	else{}
+};
+
+const url_p1 = 'https://cors-anywhere.herokuapp.com/https://tidesandcurrents.noaa.gov/api/datagetter?product=predictions&application=NOS.COOPS.TAC.WL&begin_date=';
+
+const url_p2 = '&end_date=';
+
+const url_p3 = '&datum=MLLW&station=9447934&time_zone=lst_ldt&units=english&interval=hilo&format=json'; 
+
+var url = url_p1 + date_year + date_month + date_day + url_p2 + date_year + date_month + date_day_tomorrow + url_p3;
+
+//console.log(url);
+
+xhr_ebeyTide.open('get', url, true);
+xhr_ebeyTide.send();
+
