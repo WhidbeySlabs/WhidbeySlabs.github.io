@@ -106,7 +106,8 @@ th, td{
 table{
 	background-color: rgba(8, 16, 33, 0.8);
 	border: 2px solid rgb(32, 41, 59);
-	width: 50%;
+	width: 100%;
+	max-width: 600px;
 	border-spacing: 5px;
 	padding: 2rem;
 	color: rgb(216, 215, 222);
