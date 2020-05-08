@@ -42,7 +42,7 @@ body {
 #quote{
 	margin-left: 80px;
 	font-style: italic;
-	padding-left: 8%;
+	padding-left: 5%;
 	font-size: 20px;
 	font-weight: normal;
 }
@@ -81,16 +81,13 @@ body {
 	padding-left: 5%;
 }
 
-#about{
-	color: #f2f2f2;
-	padding-left: 5%;
-}
+
 
 /* SWELL TABLE */
 
 .data_table caption{
 	text-align:left;
-	font-size: 14px;
+	font-size: 16px;
 }
 
 th, td{	
@@ -143,6 +140,19 @@ th{
 }
 
 /* ABOUT PAGE */
+#about{
+	color: #f2f2f2;
+	width: 100%;
+	float: center;
+    max-width: 600px;
+	margin-right: auto;
+	margin-left: auto;
+
+}
+
+#about h3{
+	text-align: left;
+}
 
 #about p{
 	text-align: center;
