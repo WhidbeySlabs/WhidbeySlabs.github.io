@@ -300,8 +300,8 @@ xhr_ebeyTide.onreadystatechange = function(){
 		$("#obs_time #t_1").html(tide_times_string[i]);
 		$("#obs_time #t_2").html(tide_times_string[i + 1]);
 		$("#obs_time #t_3").html(tide_times_string[i + 2]);
-		$("#obs_time #t_4").html(tide_times_string[i + 3]);
-		/*$("#obs_time #t_5").html(obs.predictions[4].t);
+		/*$("#obs_time #t_4").html(tide_times_string[i + 3]);
+		$("#obs_time #t_5").html(obs.predictions[4].t);
 		$("#obs_time #t_6").html(obs.predictions[5].t);
 		$("#obs_time #t_7").html(obs.predictions[6].t);
 		$("#obs_time #t_8").html(obs.predictions[7].t);*/
@@ -309,8 +309,8 @@ xhr_ebeyTide.onreadystatechange = function(){
 		$("#h_l #t_1").html(obs.predictions[i].type);
 		$("#h_l #t_2").html(obs.predictions[i + 1].type);
 		$("#h_l #t_3").html(obs.predictions[i + 2].type);
-		$("#h_l #t_4").html(obs.predictions[i + 3].type);
-		/*$("#h_l #t_5").html(obs.predictions[4].type);
+		/*$("#h_l #t_4").html(obs.predictions[i + 3].type);
+		$("#h_l #t_5").html(obs.predictions[4].type);
 		$("#h_l #t_6").html(obs.predictions[5].type);
 		$("#h_l #t_7").html(obs.predictions[6].type);
 		$("#h_l #t_8").html(obs.predictions[7].type);*/
@@ -318,8 +318,8 @@ xhr_ebeyTide.onreadystatechange = function(){
 		$("#value #t_1").html(obs.predictions[i].v);
 		$("#value #t_2").html(obs.predictions[i + 1].v);
 		$("#value #t_3").html(obs.predictions[i + 2].v);
-		$("#value #t_4").html(obs.predictions[i + 3].v);
-		/*$("#value #t_5").html(obs.predictions[4].v);
+		/*$("#value #t_4").html(obs.predictions[i + 3].v);
+		$("#value #t_5").html(obs.predictions[4].v);
 		$("#value #t_6").html(obs.predictions[5].v);
 		$("#value #t_7").html(obs.predictions[6].v);
 		$("#value #t_8").html(obs.predictions[7].v);*/
