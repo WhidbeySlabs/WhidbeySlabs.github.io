@@ -315,9 +315,9 @@ xhr_ebeyTide.onreadystatechange = function(){
 		$("#h_l #t_7").html(obs.predictions[6].type);
 		$("#h_l #t_8").html(obs.predictions[7].type);*/
 		
-		$("#value #t_1").html(obs.predictions[i].v);
-		$("#value #t_2").html(obs.predictions[i + 1].v);
-		$("#value #t_3").html(obs.predictions[i + 2].v);
+		$("#value #t_1").html(obs.predictions[i].v + " ft");
+		$("#value #t_2").html(obs.predictions[i + 1].v + " ft");
+		$("#value #t_3").html(obs.predictions[i + 2].v + " ft");
 		/*$("#value #t_4").html(obs.predictions[i + 3].v);
 		$("#value #t_5").html(obs.predictions[4].v);
 		$("#value #t_6").html(obs.predictions[5].v);
