@@ -234,11 +234,14 @@ if(date_month < 10){
 
 var date_day = date.getDate();
 var date_day_tomorrow = date_day + 1;
-if(date_day < 10){
+if(date_day === 9){
+	date_day_tomorrow = date_day_tomorrow.toString();
+	date_day = "0" + date_day.toString();
+}else if(date_day < 9){
 	date_day_tomorrow = "0" + date_day_tomorrow.toString();
 	date_day = "0" + date_day.toString();
 }else{date_day_tomorrow = date_day_tomorrow.toString();
-	  date_day = date_day.toString();}
+	date_day = date_day.toString();}
 
 
 var date_min = date.getMinutes();
@@ -246,7 +249,9 @@ if(date_min < 10){
 	date_min = "0" + date_min.toString();
 }else{date_min = date_min.toString();}
 
-console.log(parseInt(date.getHours() + date_min));
+//console.log(parseInt(date.getHours() + date_min));
+
+console.log(date_year + date_month + date_day + " " + date_year + date_month + date_day_tomorrow);
 
 /* Fort Ebey Tide Data Request */
 
@@ -258,7 +263,7 @@ xhr_ebeyTide.onreadystatechange = function(){
 		
 		var obs = xhr_ebeyTide.responseText;
 		obs = (JSON.parse(obs));
-		//console.log(obs);
+		console.log(obs);
 		//console.log(obs.predictions[0]);
 		
 		var tide_times_string = new Array(8);
