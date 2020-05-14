@@ -29,6 +29,7 @@ body {
 	
     padding-top: 30px;
 	padding-bottom: 30px;
+	text-align: center;
 	/*flex: 1 0 auto;*/
 }
 
@@ -85,7 +86,7 @@ body {
 
 /* SWELL TABLE */
 
-.data_table caption{
+caption{
 	text-align:left;
 	font-size: 16px;
 }
@@ -94,17 +95,43 @@ th, td{
     border-left: 4px solid rgb(32, 41, 59);
 	border-right: 4px solid rgb(32, 41, 59);
 	border-bottom: 4px solid rgb(32, 41, 59);
-	width:25%;
 	padding-top: 4px;
 	padding-bottom: 4px;
 }
 
+.current_conditions_table th, td{	
+	width: 25%;
+}
+
+.current_conditions_table table{	
+	width: 100%;
+	max-width: 600px;
+}
+
+.forecast_table table{	
+	width: 1000px;
+}
+
+.forecast_table{
+	overflow-x: auto;
+}
+/* Hide scrollbar for Chrome, Safari and Opera */
+.forecast_table::-webkit-scrollbar {
+  display: none;
+}
+
+/* Hide scrollbar for IE and Edge */
+.forecast_table {
+  -ms-overflow-style: none;
+}
+
+#swell_forecast th, td{
+	width:4%;
+}
 
 table{
 	background-color: rgba(8, 16, 33, 0.8);
 	border: 2px solid rgb(32, 41, 59);
-	width: 100%;
-	max-width: 600px;
 	border-spacing: 5px;
 	padding: 2rem;
 	color: rgb(216, 215, 222);
@@ -129,9 +156,6 @@ th{
 	border-bottom:4px solid rgb(32, 41, 59);
 }
 
-.data_table{
-	 text-align: center;
-}
 
 /*SWELL FORCAST TABLE */
 .swell_map {

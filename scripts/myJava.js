@@ -221,7 +221,7 @@ xhr_sisw1.onreadystatechange = function(){
 xhr_sisw1.open('get', "https://cors-anywhere.herokuapp.com/https://www.ndbc.noaa.gov/data/latest_obs/sisw1.txt", true);
 xhr_sisw1.send();
 
-/*Timing for Tide Data*/
+/*Date Work*/
 	
 var date = new Date();
 var date_year = date.getFullYear().toString();
@@ -249,9 +249,21 @@ if(date_min < 10){
 	date_min = "0" + date_min.toString();
 }else{date_min = date_min.toString();}
 
+
+var weekday = new Array(7);
+weekday[0] = "Sun";
+weekday[1] = "Mon";
+weekday[2] = "Tues";
+weekday[3] = "Wed";
+weekday[4] = "Thurs";
+weekday[5] = "Fri";
+weekday[6] = "Sat";
+
+var n = weekday[date.getDay()];
+
 //console.log(parseInt(date.getHours() + date_min));
 
-console.log(date_year + date_month + date_day + " " + date_year + date_month + date_day_tomorrow);
+//console.log(date_year + date_month + date_day + " " + date_year + date_month + date_day_tomorrow);
 
 /* Fort Ebey Tide Data Request */
 
@@ -263,9 +275,7 @@ xhr_ebeyTide.onreadystatechange = function(){
 		
 		var obs = xhr_ebeyTide.responseText;
 		obs = (JSON.parse(obs));
-		console.log(obs);
-		//console.log(obs.predictions[0]);
-		
+
 		var tide_times_string = new Array(8);
 		var tide_times_ints = new Array(2);
 		var tide_times_int = new Array(8);
@@ -280,7 +290,6 @@ xhr_ebeyTide.onreadystatechange = function(){
 			}else{}	
 		}
 		
-		console.log(tide_times_int);
 		
 		var i;
 		
@@ -300,7 +309,6 @@ xhr_ebeyTide.onreadystatechange = function(){
 		   i = 1;
 		}else{i=0;}
 		
-		console.log(i);
 		
 		$("#obs_time #t_1").html(tide_times_string[i]);
 		$("#obs_time #t_2").html(tide_times_string[i + 1]);
@@ -348,8 +356,115 @@ const url_p3 = '&datum=MLLW&station=9447934&time_zone=lst_ldt&units=english&inte
 
 var url = url_p1 + date_year + date_month + date_day + url_p2 + date_year + date_month + date_day_tomorrow + url_p3;
 
-//console.log(url);
 
 xhr_ebeyTide.open('get', url, true);
 xhr_ebeyTide.send();
 
+/* Coast Swell Data Request */
+
+const xhr_swell = new XMLHttpRequest();
+
+xhr_swell.onreadystatechange = function(){
+	if(xhr_swell.readyState == 4){
+		if(xhr_swell.status == 200){
+		
+			var obs = xhr_swell.responseXML;
+			
+			$("#swell_forecast #date_day #t_1").html(weekday[date.getDay()] + "\r\n" + date_day);
+			$("#swell_forecast #date_day #t_2").html(weekday[date.getDay() + 1] + "\r\n" + date_day_tomorrow);
+			
+			for(i = 0; i < 23; i++){
+				var DOM_str = "#swell_forecast #date_time #t_" + (i+1).toString();
+				
+				if(i === 0){
+					var date_hours = date.getHours();
+					var date_hours_future;
+				}else{}
+				
+				date_hours_future = date_hours + i + 1;
+					
+				if(date_hours_future === 24 || date_hours_future === 0){
+					date_hours_future = "12am";
+				}else if(date_hours_future === 36 || date_hours_future === 12){
+					date_hours_future = "12pm";
+				}else if(date_hours_future > 36){
+					date_hours_future = (date_hours_future - 36).toString() + "pm";
+				}else if(date_hours_future > 24){
+					date_hours_future = (date_hours_future - 24).toString() + "am";
+				}else if(date_hours_future > 12){
+					date_hours_future = (date_hours_future - 12).toString() + "pm";
+				}else{date_hours_future = date_hours_future.toString();}
+					
+				$(DOM_str).html(date_hours_future);
+			}
+			
+			for(i = 0; i < 23; i++){
+				var DOM_str = "#swell_forecast #swell_size #t_" + (i+1).toString();
+				$(DOM_str).html(obs.getElementsByTagName('swell')[i].childNodes[0].innerHTML + "ft");		
+			}
+			
+			for(i = 0; i < 23; i++){
+				var DOM_str = "#swell_forecast #swell_period #t_" + (i+1).toString();
+				$(DOM_str).html(obs.getElementsByTagName('swell')[i].getAttribute("period") + "s");		
+			}
+			
+			for(i = 0; i < 23; i++){
+				var DOM_str = "#swell_forecast #swell_dir #t_" + (i+1).toString();
+				$(DOM_str).html(Direction(Number(obs.getElementsByTagName('swell')[i].childNodes[1].innerHTML)));		
+			}
+
+			$("#swell_forecast #date_day #t_1").attr("colspan", ((23 - date.getHours()).toString()));
+			
+		}
+		
+	}
+		
+	else if(xhr_swell.status == 404){
+			console.log("File not Found");
+	}
+	
+	else{}
+};
+
+xhr_swell.open('get', "https://cors-anywhere.herokuapp.com/https://marine.weather.gov/MapClick.php?lat=48.3753&lon=-124.464&FcstType=digitalDWML", true);
+xhr_swell.send();
+
+/* Direction Function */
+function Direction(d_1){
+	var d_2;
+		if(d_1 < 12){
+			d_2 = "N";
+		}else if(d_1 < 34){
+			d_2 = "NNE";
+		}else if(d_1 < 56){
+			d_2 = "NE";
+		}else if(d_1 < 80){
+			d_2 = "ENE";
+		}else if(d_1 < 102){
+			d_2 = "E";
+		}else if(d_1 < 124){
+			d_2 = "ESE";
+		}else if(d_1 < 147){
+			d_2 = "SE";
+		}else if(d_1 < 169){
+			d_2 = "SSE";
+		}else if(d_1 < 192){
+			d_2 = "S";
+		}else if(d_1 < 214){
+			d_2 = "SSW";
+		}else if(d_1 < 237){
+			d_2 = "SW";
+		}else if(d_1 < 259){
+			d_2 = "WSW";
+		}else if(d_1 < 282){
+			d_2 = "W";
+		}else if(d_1 < 304){
+			d_2 = "WNW";
+		}else if(d_1 < 327){
+			d_2 = "NW";
+		}else if(d_1 < 349){
+			d_2 = "NNW";
+		}else{d_2 = "N";}
+		
+		return d_2;
+}
