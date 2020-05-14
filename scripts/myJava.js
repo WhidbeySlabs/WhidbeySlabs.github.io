@@ -370,50 +370,60 @@ xhr_swell.onreadystatechange = function(){
 		
 			var obs = xhr_swell.responseXML;
 			
-			$("#swell_forecast #date_day #t_1").html(weekday[date.getDay()] + "\r\n" + date_day);
-			$("#swell_forecast #date_day #t_2").html(weekday[date.getDay() + 1] + "\r\n" + date_day_tomorrow);
+			$("#swell_forecast_data #date_day #t_1").html(weekday[date.getDay()] + "\r\n" + date.getDay());
+			$("#swell_forecast_data #date_day #t_2").html(weekday[date.getDay() + 1] + "\r\n" + (date.getDay() + 1).toString());
+			$("#swell_forecast_data #date_day #t_3").html(weekday[date.getDay() + 2] + "\r\n" + (date.getDay() + 2).toString());
 			
-			for(i = 0; i < 23; i++){
-				var DOM_str = "#swell_forecast #date_time #t_" + (i+1).toString();
+			var numCol = 24;
+			
+			for(i = 0; i < numCol; i++){
+				var DOM_str = "#swell_forecast_data #date_time #t_" + (i+1).toString();
 				
 				if(i === 0){
 					var date_hours = date.getHours();
 					var date_hours_future;
 				}else{}
 				
-				date_hours_future = date_hours + i + 1;
+				date_hours_future = date_hours + (i*2) + 1;
 					
-				if(date_hours_future === 24 || date_hours_future === 0){
+				if(date_hours_future === 24 || date_hours_future === 0 || date_hours_future === 48){
 					date_hours_future = "12am";
-				}else if(date_hours_future === 36 || date_hours_future === 12){
+				}else if(date_hours_future === 36 || date_hours_future === 12 || date_hours_future === 60){
 					date_hours_future = "12pm";
+				}else if(date_hours_future > 60){
+					date_hours_future = (date_hours_future - 60).toString() + "pm";
+				}else if(date_hours_future > 48){
+					date_hours_future = (date_hours_future - 48).toString() + "am";
 				}else if(date_hours_future > 36){
 					date_hours_future = (date_hours_future - 36).toString() + "pm";
 				}else if(date_hours_future > 24){
 					date_hours_future = (date_hours_future - 24).toString() + "am";
 				}else if(date_hours_future > 12){
 					date_hours_future = (date_hours_future - 12).toString() + "pm";
-				}else{date_hours_future = date_hours_future.toString();}
+				}else{date_hours_future = date_hours_future.toString() + "am";}
 					
 				$(DOM_str).html(date_hours_future);
 			}
 			
-			for(i = 0; i < 23; i++){
-				var DOM_str = "#swell_forecast #swell_size #t_" + (i+1).toString();
-				$(DOM_str).html(obs.getElementsByTagName('swell')[i].childNodes[0].innerHTML + "ft");		
+			for(i = 0; i < numCol; i++){
+				var DOM_str = "#swell_forecast_data #swell_size #t_" + (i+1).toString();
+				$(DOM_str).html(obs.getElementsByTagName('swell')[(i*2)].childNodes[0].innerHTML + "ft");		
 			}
 			
-			for(i = 0; i < 23; i++){
-				var DOM_str = "#swell_forecast #swell_period #t_" + (i+1).toString();
-				$(DOM_str).html(obs.getElementsByTagName('swell')[i].getAttribute("period") + "s");		
+			for(i = 0; i < numCol; i++){
+				var DOM_str = "#swell_forecast_data #swell_period #t_" + (i+1).toString();
+				$(DOM_str).html(obs.getElementsByTagName('swell')[(i*2)].getAttribute("period") + "s");		
 			}
 			
-			for(i = 0; i < 23; i++){
-				var DOM_str = "#swell_forecast #swell_dir #t_" + (i+1).toString();
-				$(DOM_str).html(Direction(Number(obs.getElementsByTagName('swell')[i].childNodes[1].innerHTML)));		
+			for(i = 0; i < numCol; i++){
+				var DOM_str = "#swell_forecast_data #swell_dir #t_" + (i+1).toString();
+				$(DOM_str).html(Direction(Number(obs.getElementsByTagName('swell')[(i*2)].childNodes[1].innerHTML)));		
 			}
 
-			$("#swell_forecast #date_day #t_1").attr("colspan", ((23 - date.getHours()).toString()));
+			console.log(Math.round(date.getHours())/2);
+			
+			$("#swell_forecast_data #date_day #t_1").attr("colspan", ((12 - Math.round(date.getHours())/2).toString()));
+			$("#swell_forecast_data #date_day #t_2").attr("colspan", "12");
 			
 		}
 		
