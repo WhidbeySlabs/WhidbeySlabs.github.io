@@ -86,11 +86,6 @@ body {
 
 /* SWELL TABLE */
 
-caption{
-	text-align:left;
-	font-size: 16px;
-}
-
 th, td{	
     border-left: 4px solid rgb(32, 41, 59);
 	border-right: 4px solid rgb(32, 41, 59);
@@ -156,6 +151,10 @@ th{
 	border-bottom:4px solid rgb(32, 41, 59);
 }
 
+caption{
+	text-align:left;
+	font-size: 16px;
+}
 
 /*SWELL FORCAST TABLE */
 .swell_map {
