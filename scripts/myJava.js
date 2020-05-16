@@ -7,7 +7,7 @@ xhr_46087_c_s.onreadystatechange = function(){
 		if(xhr_46087_c_s.status == 200){
 		
 		var obs = xhr_46087_c_s.responseText;
-		//console.log(obs);
+
 		var obs_split = obs.split(/[\s\n]+/);
 		
 		$("#obs_time #station_1").html(obs_split[obs_split.lastIndexOf("PDT") - 2] + " " +
@@ -42,9 +42,7 @@ xhr_46088.onreadystatechange = function(){
 		if(xhr_46088.status == 200){
 		
 		var obs = xhr_46088.responseText;
-		//console.log(obs);
 		var obs_split = obs.split(/[\s\n]+/);
-		//console.log(obs_split);
 		
 		$("#obs_time #station_3").html(obs_split[obs_split.lastIndexOf("PDT") - 2] + " " +
 			obs_split[obs_split.lastIndexOf("PDT") - 1] + " " +
@@ -82,9 +80,8 @@ xhr_46267.onreadystatechange = function(){
 		if(xhr_46267.status == 200){
 		
 		var obs = xhr_46267.responseText;
-		//console.log(obs);
+
 		var obs_split = obs.split(/[\s\n]+/);
-		//console.log(obs_split);
 		
 		$("#obs_time #station_2").html(obs_split[obs_split.lastIndexOf("PDT") - 2] + " " +
 			obs_split[obs_split.lastIndexOf("PDT") - 1] + " " +
@@ -119,9 +116,8 @@ xhr_ptww1.onreadystatechange = function(){
 		if(xhr_ptww1.status == 200){
 		
 		var obs = xhr_ptww1.responseText;
-		//console.log(obs);
+		
 		var obs_split = obs.split(/[\s\n]+/);
-		//console.log(obs_split);
 		
 		$("#obs_time #station_2").html(obs_split[obs_split.lastIndexOf("PDT") - 2] + " " +
 			obs_split[obs_split.lastIndexOf("PDT") - 1] + " " +
@@ -152,12 +148,8 @@ xhr_46087_rot_s.onreadystatechange = function(){
 		if(xhr_46087_rot_s.status == 200){
 		
 		var obs = xhr_46087_rot_s.responseText;
-		//console.log(obs);
+
 		var obs_split = obs.split(/[\s\n]+/);
-		//console.log(obs_split);
-		
-		//console.log(obs_split[obs_split.indexOf("SwH")+15*2]);
-		//console.log(obs_split[obs_split.indexOf("SwH")+15*3]);
 		
 		var latest_avg_swell = (parseFloat(obs_split[obs_split.indexOf("SwH")+15*2]) + parseFloat(obs_split[obs_split.indexOf("SwH")+15*3]) 
 					+ parseFloat(obs_split[obs_split.indexOf("SwH")+15*4]));
@@ -165,7 +157,6 @@ xhr_46087_rot_s.onreadystatechange = function(){
 		var past_avg_swell = (parseFloat(obs_split[obs_split.indexOf("SwH")+15*5]) + parseFloat(obs_split[obs_split.indexOf("SwH")+15*6]) 
 					+ parseFloat(obs_split[obs_split.indexOf("SwH")+15*7]));
 					
-		//console.log(latest_avg_swell/past_avg_swell);
 		
 		$("#swell_t #station_1").html((latest_avg_swell/past_avg_swell).toFixed(2));
 		
@@ -249,7 +240,7 @@ if(date_min < 10){
 	date_min = "0" + date_min.toString();
 }else{date_min = date_min.toString();}
 
-
+/* Weekday Identifier */
 var weekday = new Array(7);
 weekday[0] = "Sun";
 weekday[1] = "Mon";
@@ -260,10 +251,6 @@ weekday[5] = "Fri";
 weekday[6] = "Sat";
 
 var n = weekday[date.getDay()];
-
-//console.log(parseInt(date.getHours() + date_min));
-
-//console.log(date_year + date_month + date_day + " " + date_year + date_month + date_day_tomorrow);
 
 /* Fort Ebey Tide Data Request */
 
@@ -287,16 +274,18 @@ xhr_ebeyTide.onreadystatechange = function(){
 			tide_times_int[i] = parseInt(tide_times_int[i][0]+tide_times_int[i][1]);
 			if(i > 3){
 				tide_times_string[i] = tide_times_string[i] + " + 1";
+			}else if(tide_times_int[3] < 100){
+				tide_times_string[3] = tide_times_string[3] + " + 1";
 			}else{}	
 		}
-		
 		
 		var i;
 		
 		if(tide_times_int[0] < parseInt(date.getHours() + date_min) && 
 		   tide_times_int[1] < parseInt(date.getHours() + date_min) &&
 		   tide_times_int[2] < parseInt(date.getHours() + date_min) &&
-		   tide_times_int[3] < parseInt(date.getHours() + date_min)){
+		   tide_times_int[3] < parseInt(date.getHours() + date_min) &&
+		   tide_times_int[3] > 100){
 		   i = 3;	 
 		}else if (
 		   tide_times_int[0] < parseInt(date.getHours() + date_min) && 
@@ -313,29 +302,14 @@ xhr_ebeyTide.onreadystatechange = function(){
 		$("#obs_time #t_1").html(tide_times_string[i]);
 		$("#obs_time #t_2").html(tide_times_string[i + 1]);
 		$("#obs_time #t_3").html(tide_times_string[i + 2]);
-		/*$("#obs_time #t_4").html(tide_times_string[i + 3]);
-		$("#obs_time #t_5").html(obs.predictions[4].t);
-		$("#obs_time #t_6").html(obs.predictions[5].t);
-		$("#obs_time #t_7").html(obs.predictions[6].t);
-		$("#obs_time #t_8").html(obs.predictions[7].t);*/
 		
 		$("#h_l #t_1").html(obs.predictions[i].type);
 		$("#h_l #t_2").html(obs.predictions[i + 1].type);
 		$("#h_l #t_3").html(obs.predictions[i + 2].type);
-		/*$("#h_l #t_4").html(obs.predictions[i + 3].type);
-		$("#h_l #t_5").html(obs.predictions[4].type);
-		$("#h_l #t_6").html(obs.predictions[5].type);
-		$("#h_l #t_7").html(obs.predictions[6].type);
-		$("#h_l #t_8").html(obs.predictions[7].type);*/
 		
 		$("#value #t_1").html(obs.predictions[i].v + " ft");
 		$("#value #t_2").html(obs.predictions[i + 1].v + " ft");
 		$("#value #t_3").html(obs.predictions[i + 2].v + " ft");
-		/*$("#value #t_4").html(obs.predictions[i + 3].v);
-		$("#value #t_5").html(obs.predictions[4].v);
-		$("#value #t_6").html(obs.predictions[5].v);
-		$("#value #t_7").html(obs.predictions[6].v);
-		$("#value #t_8").html(obs.predictions[7].v);*/
 
 		}
 		
@@ -370,9 +344,26 @@ xhr_swell.onreadystatechange = function(){
 		
 			var obs = xhr_swell.responseXML;
 			
-			$("#swell_forecast_data #date_day #t_1").html(weekday[date.getDay()] + "\r\n" + date.getDay());
-			$("#swell_forecast_data #date_day #t_2").html(weekday[date.getDay() + 1] + "\r\n" + (date.getDay() + 1).toString());
-			$("#swell_forecast_data #date_day #t_3").html(weekday[date.getDay() + 2] + "\r\n" + (date.getDay() + 2).toString());
+			var day_of_week = date.getDay();
+			var day_of_week_plus_one;
+			var day_of_week_plus_two;
+			
+			if(day_of_week === 5){
+				day_of_week_plus_one = 6;
+				day_of_week_plus_two = 0;
+			}else if(day_of_week === 6){
+				day_of_week_plus_one = 0;
+				day_of_week_plus_two = 1;
+			}else{
+				day_of_week_plus_one = day_of_week + 1;
+				day_of_week_plus_two = day_of_week + 2;}		
+			
+			$("#swell_forecast_data #date_day #t_1").html(weekday[day_of_week] + "\r\n" + date.getDate());
+			$("#swell_forecast_data #date_day #t_2").html(weekday[day_of_week_plus_one] + "\r\n" + (date.getDate() + 1).toString());
+			$("#swell_forecast_data #date_day #t_3").html(weekday[day_of_week_plus_two] + "\r\n" + (date.getDate() + 2).toString());
+			
+			$("#swell_forecast_data #date_day #t_1").attr("colspan", ((12 - Math.round(date.getHours())/2).toString()));
+			$("#swell_forecast_data #date_day #t_2").attr("colspan", "12");
 			
 			var numCol = 24;
 			
@@ -420,10 +411,6 @@ xhr_swell.onreadystatechange = function(){
 				$(DOM_str).html(Direction(Number(obs.getElementsByTagName('swell')[(i*2)].childNodes[1].innerHTML)));		
 			}
 
-			console.log(Math.round(date.getHours())/2);
-			
-			$("#swell_forecast_data #date_day #t_1").attr("colspan", ((12 - Math.round(date.getHours())/2).toString()));
-			$("#swell_forecast_data #date_day #t_2").attr("colspan", "12");
 			
 		}
 		
@@ -438,6 +425,38 @@ xhr_swell.onreadystatechange = function(){
 
 xhr_swell.open('get', "https://cors-anywhere.herokuapp.com/https://marine.weather.gov/MapClick.php?lat=48.3753&lon=-124.464&FcstType=digitalDWML", true);
 xhr_swell.send();
+
+/* Fort Ebey Weather Data Request */
+
+const xhr_ebeyWeather = new XMLHttpRequest();
+
+xhr_ebeyWeather.onreadystatechange = function(){
+	if(xhr_ebeyWeather.readyState == 4){
+		if(xhr_ebeyWeather.status == 200){
+		
+		var obs = xhr_ebeyWeather.responseText;
+		obs = (JSON.parse(obs));
+		
+		var numCol = 25;
+		
+		for(i = 1; i < numCol; i++){
+				var DOM_str = "#swell_forecast_data #wind_speed #t_" + (i).toString();
+				$(DOM_str).html(obs.properties.periods[i].windSpeed);		
+		}
+		for(i = 1; i < numCol; i++){
+				var DOM_str = "#swell_forecast_data #wind_dir #t_" + (i).toString();
+				$(DOM_str).html(obs.properties.periods[i].windDirection);		
+		}
+
+		}else{}
+		
+	}else if(xhr_ebeyWeather.status == 404){
+			console.log("File not Found");
+	}else{}
+};
+
+xhr_ebeyWeather.open('get', "https://cors-anywhere.herokuapp.com/https://api.weather.gov/gridpoints/SEW/115,100/forecast/hourly", true);
+xhr_ebeyWeather.send();
 
 /* Direction Function */
 function Direction(d_1){

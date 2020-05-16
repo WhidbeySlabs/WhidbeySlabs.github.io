@@ -107,7 +107,7 @@ th, td{
 }
 
 .forecast_table table{	
-	width: 1000px;
+	width: 1350px;
 	padding-left: 0px;
 	padding-right: 0px;
 }
@@ -116,7 +116,7 @@ th, td{
 	overflow-x: auto;
 	padding-left: 0px;
 	padding-right: 0px;
-	margin: 0;
+	margin: 4px;
 }
 /* Hide scrollbar for Chrome, Safari and Opera */
 .forecast_table::-webkit-scrollbar {
@@ -130,8 +130,8 @@ th, td{
 
 .forecast_table tbody th{
 	font-size: 14px;
-	padding-left: 0px;
-	padding-right: 0px;
+	padding-left: 5px;
+	padding-right: 5px;
 }
 
 .headcol{
